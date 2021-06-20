@@ -29,6 +29,7 @@ FROM $DOCKER_IMAGE as runtime
 ARG DEBIAN_FRONTEND=noninteractive
 
 COPY --from=builder /tmp/xmrig/build/xmrig /usr/local/bin/xmrig
+COPY --from=builder /tmp/xmrig/src/config.json /usr/local/bin/config.json
 
 ENV PATH="/usr/local/bin:${PATH}"
 

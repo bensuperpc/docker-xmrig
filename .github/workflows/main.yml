@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distribution: ["debian", "alpine", "ubuntu", "fedora"] #Disable "archlinux" "cuda"
+        distribution: ["debian", "alpine", "ubuntu", "fedora", "cuda"] #Disable "archlinux"
     steps:
       - name: "📥 Checkout Code"
         uses: actions/checkout@v2.3.4

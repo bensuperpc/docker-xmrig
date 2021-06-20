@@ -42,15 +42,15 @@ COM_ARCH_LIST:= $(subst $() $(),$(comma),$(ARCH_LIST))
 $(ARCH_LIST): $(DOCKERFILE)
 	$(DOCKER) buildx build . -f $(DOCKERFILE) -t $(IMAGE_NAME):$(IMAGE_SUBTAG)-$(TAG) \
 	-t $(IMAGE_NAME):$(IMAGE_SUBTAG) --build-arg BUILD_DATE=$(DATE_FULL) -t $(IMAGE_NAME):$(IMAGE_SUBTAG)-latest \
-	--build-arg DOCKER_IMAGE=$(BUIDER_IMAGE) --platform $@ --build-arg VERSION=$(VERSION) \
-	--build-arg RUNTIME_IMAGE=$(RUNTIME_IMAGE) --load
+	--build-arg DOCKER_IMAGE=$(BUIDER_IMAGE) --build-arg VERSION=$(VERSION) \
+	--build-arg RUNTIME_IMAGE=$(RUNTIME_IMAGE) --platform $@  --load
 
 	
 all: $(DOCKERFILE)
 	$(DOCKER) buildx build . -f $(DOCKERFILE) -t $(IMAGE_NAME):$(IMAGE_SUBTAG)-$(TAG) -t $(IMAGE_NAME):latest \
 	-t $(IMAGE_NAME):$(IMAGE_SUBTAG) --build-arg BUILD_DATE=$(DATE_FULL) -t $(IMAGE_NAME):$(IMAGE_SUBTAG)-latest \
-	--build-arg DOCKER_IMAGE=$(BUIDER_IMAGE) --platform $(COM_ARCH_LIST) --build-arg VERSION=$(VERSION) \
-	--build-arg RUNTIME_IMAGE=$(RUNTIME_IMAGE) --push
+	--build-arg DOCKER_IMAGE=$(BUIDER_IMAGE) --build-arg VERSION=$(VERSION) \
+	--build-arg RUNTIME_IMAGE=$(RUNTIME_IMAGE) --platform $(COM_ARCH_LIST) --push
 
 push: all
 
